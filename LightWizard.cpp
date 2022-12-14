@@ -7,7 +7,15 @@
 #include <typeinfo>
 using std::cout;
 
-LightWizard::LightWizard() : Wizard() {}
+LightWizard::LightWizard() : Wizard() {
+    this->skills = "Light";
+    this->lightningSpeed = 0;
+    this->direction = 0;
+    static_cast<Wizard *>(this)->setPowers(0);
+    static_cast<Wizard *>(this)->setAttackStyle("Long Range");
+    this->setAge(0);
+    this->setName("Light Wizard");
+}
 
 LightWizard::LightWizard(const string &name, const string &attackStyle, const int idade, const int quantityPowers, const string &skills) : Wizard(name, attackStyle, idade, quantityPowers)
 {

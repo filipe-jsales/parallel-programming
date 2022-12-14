@@ -28,7 +28,7 @@ public:
     int lightningAttack();
     void showAttackStyle(const string &);
     //method to store the wizard pointer
-    void setWizard(Wizard *);
+    // void setWizard(Wizard *);
 
 
     void operator=(const LightWizard &);
@@ -40,10 +40,10 @@ private:
     vector<string> attackStyle;
     string skills;
     int lightningSpeed;
+    vector<Wizard *> wizard;
     int direction;
 
     //vector pointer of Wizard
-    vector<Wizard *> wizard;
 };
 
 #endif // LIGHT_WIZARD_H

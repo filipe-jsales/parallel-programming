@@ -14,7 +14,7 @@ using std::string;
 
 class DwarfWarrior: public Warrior
 {
-    // friend ostream &operator<<(ostream &, const DwarfWarrior &);
+    friend ostream &operator<<(ostream &, const DwarfWarrior &);
 
 public:
     DwarfWarrior();

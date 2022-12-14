@@ -45,80 +45,115 @@ Creature::~Creature()
 
 int Creature::getLimbs() const
 {
-    return appendages;
+    if (typeid(*this) == typeid(Warrior))
+    {
+        return appendages;
+    }
 }
 int Creature::getHeight() const
 {
-    return height;
+    if (typeid(*this) == typeid(Warrior))
+    {
+        return height;
+    }
 }
 int Creature::getWeight() const
 {
-    return weight;
+    if (typeid(*this) == typeid(Warrior))
+    {
+        return weight;
+    }
 }
 int Creature::getHealth() const
 {
-    return health;
+    if (typeid(*this) == typeid(Warrior))
+    {
+        return health;
+    }
 }
 COLOR Creature::getColor() const
 {
-    return skin;
+    if (typeid(*this) == typeid(Warrior))
+    {
+        return skin;
+    }
 }
 string Creature::getName() const
 {
-    return identity;
+    if (typeid(*this) == typeid(Warrior))
+    {
+        return identity;
+    }
 }
 
 bool Creature::setLimbs(int limbs)
 {
-    bool validLimbs = (limbs > 0);
-    if (validLimbs)
+    if (typeid(*this) == typeid(Warrior))
     {
-        appendages = limbs;
+        bool validLimbs = (limbs > 0);
+        if (validLimbs)
+        {
+            appendages = limbs;
+        }
+        return validLimbs;
     }
-    return validLimbs;
 }
 
 bool Creature::setHeight(int ht)
 {
-    bool validHeight = (ht > 0);
-    if (validHeight)
+    if (typeid(*this) == typeid(Warrior))
     {
-        height = ht;
+        bool validHeight = (ht > 0);
+        if (validHeight)
+        {
+            height = ht;
+        }
+        return validHeight;
     }
-    return validHeight;
 }
 bool Creature::setWeight(int wt)
 {
-    bool validWeight = (wt > 0);
-    if (validWeight)
+    if (typeid(*this) == typeid(Warrior))
     {
-        weight = wt;
+        bool validWeight = (wt > 0);
+        if (validWeight)
+        {
+            weight = wt;
+        }
+        return validWeight;
     }
-    return validWeight;
 }
 bool Creature::setHealth(int life)
 {
-    bool validHealth = (life > 0);
-    if (validHealth)
+    if (typeid(*this) == typeid(Warrior))
     {
-        health = life;
+        bool validHealth = (life > 0);
+        if (validHealth)
+        {
+            health = life;
+        }
+        return validHealth;
     }
-    return validHealth;
 }
 bool Creature::setColor(COLOR hideColor)
 {
-    bool validColor = (hideColor >= 1) && (hideColor <= 10);
-    if (validColor)
+    if (typeid(*this) == typeid(Warrior))
     {
+        bool validColor = (hideColor >= 1) && (hideColor <= 10);
+        if (validColor)
+        {
 
-        skin = hideColor;
+            skin = hideColor;
+        }
+        return validColor;
     }
-    return validColor;
 }
 string Creature::setName(string name)
 {
-    identity = name;
-    return name;
+    if (typeid(*this) == typeid(Warrior))
+    {
+        identity = name;
+    }
 }
 
 void Creature::operator=(const Creature &otherCreature)
@@ -136,12 +171,20 @@ void Creature::operator=(const Creature &otherCreature)
 bool Creature::operator==(const Creature &otherCreature) const
 {
     if (static_cast<const Warrior &>(*this) == static_cast<const Warrior &>(otherCreature))
-    {   
-        //typeid examples
-
-        return true;
+    {
+        if (appendages == otherCreature.appendages && height == otherCreature.height && weight == otherCreature.weight && health == otherCreature.health && skin == otherCreature.skin && identity == otherCreature.identity)
+        {
+            cout << "The " << identity << "creature is the same as the other creature."
+                 << "\n";
+            return true;
+        }
+        else
+        {
+            cout << "The " << identity << "creature is not the same as the other creature."
+                 << "\n";
+            return false;
+        }
     }
-    
 }
 
 bool Creature::operator!=(const Creature &otherCreature) const
@@ -159,7 +202,6 @@ void Creature::operator!()
          << "\n";
     health = 0;
     typeid(*this).name();
-
 }
 
 bool Creature::tauntPlayer() const
@@ -189,8 +231,7 @@ void Creature::fightWith(Creature &otherCreature)
         cout << "The " << identity << "creature attacks you for " << damage << " damage."
              << "\n";
 
-        //typeid examples
-
+        // typeid examples
     }
     else
     {
@@ -204,22 +245,7 @@ void Creature::defineLeader(Creature &creature)
     creature.isLeader = true;
 }
 
-bool Creature::tauntPlayer() const
-{
-
-    //dynamic casting
-    const Creature *creature = dynamic_cast<const Creature *>(this);
-    if (creature)
-    {
-        cout << "The " << identity << "creature taunts you."
-             << "\n";
-        return creature->tauntPlayer();
-    }
-    return false;
-
-}
-
-//method to show typeid of object
+// method to show typeid of object
 void Creature::showType() const
 {
     cout << "The " << identity << "creature is a " << typeid(*this).name() << "."
@@ -241,3 +267,14 @@ void Creature::showType() const
     }
 }
 
+ostream &operator<<(ostream &out, const Creature &creature)
+{
+    out << "The " << creature.identity << "creature has " << creature.health << " health left."
+        << "\n";
+    return out;
+}
+
+bool Creature::isALeader() const
+{
+    return isLeader;
+}

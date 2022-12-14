@@ -24,11 +24,13 @@ enum COLOR
 
 class Creature : public Warrior
 {
+	friend std::ostream &operator<<(std::ostream &, const Creature &);
 
 public:
 	Creature();
-	Creature(int limbs, int ht, int wt, int life, COLOR hideColor, string name);
-	Creature(const Creature &otherCreature);
+	Creature(int , int , int , int , COLOR , string );
+	Creature(const Creature &);
+	~Creature();
 
 	int getLimbs() const;
 	int getHeight() const;
@@ -37,17 +39,16 @@ public:
 	COLOR getColor() const;
 	string getName() const;
 	bool tauntPlayer() const;
-    bool isALeader() const { return this->isLeader; }
+    bool isALeader() const;
     static void defineLeader(Creature &);
-    bool tauntPlayer() const;
 	void showType() const; 
 
-	bool setLimbs(int limbs);
-	bool setHeight(int ht);
-	bool setWeight(int wt);
-	bool setHealth(int life);
-	bool setColor(COLOR hideColor);
-	string setName(string name);
+	bool setLimbs(int );
+	bool setHeight(int );
+	bool setWeight(int );
+	bool setHealth(int );
+	bool setColor(COLOR );
+	string setName(string );
 	virtual void fightWith(Creature &);
 
 	void operator=(const Creature &);
@@ -55,8 +56,6 @@ public:
 	bool operator!=(const Creature &) const;
 	void operator!();
 
-	// I choose to use ints for the data fields because they are simplier than floats and easier to
-	// keep track of.
 private:
 	int appendages;
 	int height;

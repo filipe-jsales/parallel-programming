@@ -16,6 +16,7 @@ public:
     Warrior(int);
     Warrior(const string &, const string &, const int, int);
     Warrior(const Warrior &, const string &, const string &, const int, int);
+    Warrior(const Warrior &);
     ~Warrior();
 
     int getQuantityWeapons() const;

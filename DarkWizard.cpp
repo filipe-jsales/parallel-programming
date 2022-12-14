@@ -23,12 +23,19 @@ DarkWizard::DarkWizard() : Wizard() {
 DarkWizard::DarkWizard(const string &name, const string &attackStyle, const int age, const int quantityPowers, const string &typeofRage) : Wizard(name, attackStyle, age, quantityPowers)
 {
     this->typeofRage = typeofRage;
+    this->magicLevel = 0;
 }
 
 DarkWizard::DarkWizard(const DarkWizard &other, const string &name, const string &attackStyle, const int age, const int quantityPowers, const string &tipoTemperaemnto) : Wizard(name, attackStyle, age, quantityPowers)
 {
     this->typeofRage = other.typeofRage;
+    this->magicLevel = other.magicLevel;
 }
+DarkWizard::DarkWizard(const DarkWizard &other) : Wizard(other)
+{
+    this->typeofRage = other.typeofRage;
+}
+
 DarkWizard::~DarkWizard()
 {
 

@@ -51,6 +51,23 @@ Wizard::Wizard(const Wizard &other, const string &name, const string &characterS
     for (int i = 0; i < nextEntrieInWizards; i++)
         this->wizardPtr[i] = other.wizardPtr[i];
 }
+
+Wizard::Wizard(const Wizard &other) : powersRegistered(0), STRENGTH(50.0), WarCraftCharacter(other)
+{
+    powers++;
+    wizards++;
+
+    this->vectorPowers.resize(other.vectorPowers.size());
+    for (auto i = 0; i < other.vectorPowers.size(); i++)
+        this->vectorPowers[i] = other.vectorPowers[i];
+
+    this->wizardSize = other.wizardSize;
+    this->nextEntrieInWizards = other.nextEntrieInWizards;
+    this->wizardPtr = new int[this->wizardSize];
+    for (int i = 0; i < nextEntrieInWizards; i++)
+        this->wizardPtr[i] = other.wizardPtr[i];
+}
+
 Wizard::~Wizard()
 {
     powers--;
@@ -220,3 +237,21 @@ void Wizard::setAttackStyle(const string &attackStyle)
     }
 }
 
+ostream &operator<<(ostream &out, const Wizard &wizard)
+{
+    out << "Name: " << wizard.getName() << '\n';
+    out << "Character Style: " << wizard.getCharacterStyle() << '\n';
+    out << "Age: " << wizard.getAge() << '\n';
+    out << "Powers: " << wizard.getPowers() << '\n';
+    out << "Wizards: " << wizard.getWizards() << '\n';
+
+    out << "vectorPowers list: " << '\n';
+    for (int i = 0; i < wizard.vectorPowers.size(); i++)
+        out << wizard.vectorPowers[i] << '\t' << *wizard.vectorPowers[i] << '\n';
+
+    out << "\nWizards: " << '\n';
+    for (int i = 0; i < wizard.nextEntrieInWizards; i++)
+        out << wizard.wizardPtr[i] << "\n";
+
+    return out;
+}

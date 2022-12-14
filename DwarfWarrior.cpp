@@ -250,3 +250,14 @@ void DwarfWarrior::printInfo() const
     std::cout << "Attack Points: " << this->attackPoints << "\n";
     std::cout << "===============================\n";
 }
+
+ostream &operator<<(ostream &out, const DwarfWarrior &dwarf)
+{
+    out << "===============================\n";
+    out << "DwarfWarrior: " << dwarf.name << "\n";
+    out << "Health Points: " << dwarf.healthPoints << "\n";
+    out << "Defense Points: " << dwarf.defensePoints << "\n";
+    out << "Attack Points: " << dwarf.attackPoints << "\n";
+    out << "===============================\n";
+    return out;
+}

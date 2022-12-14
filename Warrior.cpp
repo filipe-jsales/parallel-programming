@@ -5,11 +5,6 @@
 #include <cmath>
 using std::cout;
 
-int Warrior::backpack = 0;
-int Warrior::getBackpackSize()
-{
-    return backpack;
-}
 Warrior::Warrior() : weaponsRegistered(0)
 {
     nextEntrieInAttack = 0;
@@ -33,6 +28,24 @@ Warrior::Warrior(const string &name, const string &attackStyle, const int age, i
     cout << "Ready to fight" << '\n';
 }
 Warrior::Warrior(const Warrior &other, const string &name, const string &attackStyle, const int age, int quantityWeapons) : weaponsRegistered(0), WarCraftCharacter(name, attackStyle, age)
+{
+    quantityWeapons++;
+    damagePoints++;
+
+    setWeaponsQuantity(other.quantityWeapons);
+
+    this->weapons.resize(other.weapons.size());
+    for (auto i = 0; i < other.weapons.size(); i++)
+        this->weapons[i] = other.weapons[i];
+
+    this->nextEntrieInAttack = other.nextEntrieInAttack;
+    this->attacksPointer = new int[this->ataquesSize];
+    this->ataquesSize = other.ataquesSize;
+    for (int i = 0; i < nextEntrieInAttack; i++)
+        this->attacksPointer[i] = other.attacksPointer[i];
+}
+
+Warrior::Warrior(const Warrior &other) : weaponsRegistered(0)
 {
     quantityWeapons++;
     damagePoints++;
@@ -267,5 +280,10 @@ void Warrior::printInfo() const
     cout << '\n';
 }
 
+int Warrior::backpack = 0;
+int Warrior::getBackpackSize()
+{
+    return backpack;
+}
 
 

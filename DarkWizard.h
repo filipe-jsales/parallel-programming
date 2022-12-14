@@ -16,6 +16,7 @@ public:
     DarkWizard();
     DarkWizard(const string &, const string &, const int, const int, const string &);
     DarkWizard(const DarkWizard &, const string &, const string &, const int, int, const string &);
+    DarkWizard(const DarkWizard &);
     ~DarkWizard();
 
     string getTypeofRage() const;

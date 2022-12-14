@@ -25,6 +25,7 @@ public:
     Wizard(int);
     Wizard(const string &, const string &, const int, int);
     Wizard(const Wizard &, const string &, const string &, const int, int);
+    Wizard(const Wizard &);
     ~Wizard();
 
     int getPowers() const;

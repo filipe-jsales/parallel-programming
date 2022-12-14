@@ -4,7 +4,10 @@
 #include "WarCraftCharacter.h"
 using std::cout;
 
-WarCraftCharacter::WarCraftCharacter() : characterStyle("Poderes") {}
+WarCraftCharacter::WarCraftCharacter() : characterStyle("Poderes") {
+    name = "WarCraftCharacter";
+    age = 0;
+}
 
 WarCraftCharacter::WarCraftCharacter(const string &name, const string &characterStyle, int age)
 {
@@ -13,14 +16,14 @@ WarCraftCharacter::WarCraftCharacter(const string &name, const string &character
     this->age = age;
 }
 
-WarCraftCharacter::~WarCraftCharacter()
-{
-}
 
 WarCraftCharacter::WarCraftCharacter(const WarCraftCharacter &another)
 {
     this->name = another.name;
     this->age = another.age;
+}
+WarCraftCharacter::~WarCraftCharacter()
+{
 }
 string WarCraftCharacter::getName() const
 {
@@ -100,40 +103,3 @@ void WarCraftCharacter::printInfo()
     }
 }
 
-// ostream &operator<<(ostream &out, const WarCraftCharacter &character)
-// {
-//     out << "Character name " << '\n';
-//     out << character.name << '\n';
-//     out << "Character age: " << '\n';
-//     out << character.age << '\n';
-//     out << "Attack Style: " << '\n';
-//     out << character.characterStyle << '\n';
-//     return out;
-// }
-
-// void WarCraftCharacter::operator=(const WarCraftCharacter &character)
-// {
-//     this->name = character.name;
-//     this->age = character.age;
-// }
-// bool WarCraftCharacter::operator==(const WarCraftCharacter &character) const
-// {
-//     if (age < 18)
-//     {
-//         cout << "The character is underage " << '\n';
-//         return true;
-//     }
-//     return false;
-// }
-// bool WarCraftCharacter::operator!=(const WarCraftCharacter &character) const
-// {
-//     return !(*this == character);
-// }
-
-// void WarCraftCharacter::operator!()
-// {
-//     if (characterStyle == "")
-//     {
-//         cout << "Needs to set a character attack style" << '\n';
-//     }
-// }

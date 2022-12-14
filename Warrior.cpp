@@ -265,8 +265,8 @@ void Warrior::printInfo() const
     cout << "Character style: " << getCharacterStyle() << '\n';
     cout << "Weapon: " << getWeapon() << '\n';
     cout << "Quantity of weapons: " << getQuantityWeapons() << '\n';
-    cout << "Damage points: " << getAttackPoints() << '\n';
-    cout << "Backpack: " << backpack << '\n';
+    // cout << "Damage points: " << getAttackPoints() << '\n';
+    // cout << "Backpack: " << backpack << '\n';
     cout << "Weapons registered: " << weaponsRegistered << '\n';
     cout << "Next entrie in attack: " << nextEntrieInAttack << '\n';
     cout << "Attack size: " << ataquesSize << '\n';
@@ -287,3 +287,12 @@ int Warrior::getBackpackSize()
 }
 
 
+// void Warrior::setBackpackSize(int backpackSize)
+// {
+//     if (backpackSize < 0)
+//     {
+//         backpackSize = 0;
+//         return;
+//     }
+//     this->backpack = backpackSize;
+// }

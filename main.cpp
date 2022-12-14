@@ -10,8 +10,8 @@
 #include "DarkWizard.cpp"
 #include "DwarfWarrior.cpp"
 #include "DwarfWarrior.h"
-// #include "Creature.h"
-// #include "Creature.cpp"
+#include "Creature.h"
+#include "Creature.cpp"
 
 #include <iostream>
 #include <vector>
@@ -22,13 +22,40 @@ using std::vector;
 int main()
 {
 
-  Wizard wizard1;
-  Wizard wizard2;
-  Wizard wizard3;
+  DarkWizard wizard1;
+  LightWizard wizard2;
+  DarkWizard wizard3;
   DarkWizard darkWizard;
   LightWizard lightWizard;
   Warrior warrior;
   DwarfWarrior dwarfWarrior;
+  Creature creature1;
+  Creature creature2;
+
+  
+  creature1.setLimbs(4);
+  creature1.setHeight(7);
+  creature1.setWeight(250);
+  creature1.setHealth(300);
+  creature1.setColor(Gray);
+  creature1.setWeapon("Knife");
+  creature1.setWeaponsQuantity(1);
+
+
+  creature2.setLimbs(5);
+  creature2.setHeight(4);
+  creature2.setWeight(156);
+  creature2.setHealth(341);
+  creature2.setColor(Black);
+  creature2.setWeapon("Sword");
+  creature2.setWeaponsQuantity(2);
+  // creature2.setDamagePoints(10);
+  creature1.printInfo();
+
+  creature2.printInfo();
+
+  creature1.fightWith(creature2);
+
   dwarfWarrior.setHP(10);
   dwarfWarrior.setDefensePoints(10);
   dwarfWarrior.setAttackPoints(3);
@@ -55,7 +82,7 @@ int main()
 
   cout << "Dark Wizard Attacks style: " << darkWizard << "\n";
   darkWizard.setAttackStyle("Blindings light"); //errado
-  darkWizard.setAttackStyle("Blinding light"); //errado
+  darkWizard.setAttackStyle("Blinding light"); 
   darkWizard.setAttackStyle("Shadow cast");
   darkWizard.setAttackStyle("Dark fire");
   darkWizard.getAttackStyle();
@@ -81,6 +108,10 @@ int main()
 
   wizard1.printInfo();
 
+
+  
+
+
   magicians.push_back(new string(wizard1.getName()));
   wizard2.setName(nome2);
   magicians.push_back(new string(wizard2.getName()));
@@ -96,8 +127,6 @@ int main()
   wizard3.setPowerName(poder3);
   poderes.push_back(new string(wizard3.getPowerName()));
 
-  for (int i = 0; i < poderes.size(); i++)
-    wizard1.registerWizardsPower(*poderes[i]);
 
   wizard1.evolve();
 
@@ -106,8 +135,10 @@ int main()
   warrior.setAge(24);
   warrior.setCharacterStyle("Short Range");
   warrior.printInfo();
+  warrior.verifyState();
 
-
+  for (int i = 0; i < poderes.size(); i++)
+    wizard1.registerWizardsPower(*poderes[i]);
   vector<string *> armas;
   warrior.setWeapon(arma1);
   armas.push_back(new string(warrior.getWeapon()));
@@ -116,7 +147,7 @@ int main()
   for (int i = 0; i < armas.size(); i++)
     warrior.registerNewWeaponsWarrior(*armas[i]);
 
-  warrior.verifyState();
+
 
   cout<<"VECTOR DE PONTEIROS"<< '\n';
   //Vector de ponteiro sem Dynamic e sem o typeId
@@ -129,7 +160,7 @@ int main()
   wizards.push_back(wizard3);
 
   for (int i = 0; i < wizards.size(); i++)
-    cout << wizards[i].getName() << '\n';
+    cout << "name: " << wizards[i].getName() << '\n';
 
   //delete dos ponteiros
   for (int i = 0; i < wizards.size(); i++)
@@ -139,9 +170,8 @@ int main()
     delete magicians[i];
   for (int i = 0; i < armas.size(); i++)
     delete armas[i];
-  for (int i = 0; i < poderes.size(); i++)
+    for (int i = 0; i < poderes.size(); i++)
     delete poderes[i];
-
 
 
   return 0;

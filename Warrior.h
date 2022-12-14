@@ -28,6 +28,7 @@ public:
     void setWeapon(const string &);
     void registerNewWeaponsWarrior(const string &);
     void printInfo() const;
+    // void setBackpackSize(int);
 
     void registerNewAttacks(int);
 

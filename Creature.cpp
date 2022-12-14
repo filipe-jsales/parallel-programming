@@ -276,5 +276,8 @@ ostream &operator<<(ostream &out, const Creature &creature)
 
 bool Creature::isALeader() const
 {
-    return isLeader;
+    if (typeid(*this) == typeid(Warrior))
+    {
+        return isLeader;
+    }
 }

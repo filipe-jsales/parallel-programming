@@ -1,12 +1,12 @@
 #include "Creature.h"
-#include "Enemy.h"
+#include "Warrior.h"
 #include <iostream>
 #include <typeinfo>
 
 using std::cout;
 using std::string;
 
-Creature::Creature() : identity("Creature"), isLeader(false), Enemy()
+Creature::Creature() : identity("Creature"), isLeader(false), Warrior()
 {
     appendages = 4;
     height = 7;
@@ -16,7 +16,7 @@ Creature::Creature() : identity("Creature"), isLeader(false), Enemy()
     this->isLeader = false;
 }
 
-Creature::Creature(int limbs, int ht, int wt, int life, COLOR hideColor, string name) : identity(name), isLeader(false), Enemy(name, life, false)
+Creature::Creature(int limbs, int ht, int wt, int life, COLOR hideColor, string name) : identity(name), isLeader(false), Warrior()
 {
     appendages = limbs;
     height = ht;
@@ -135,7 +135,7 @@ void Creature::operator=(const Creature &otherCreature)
 }
 bool Creature::operator==(const Creature &otherCreature) const
 {
-    if (static_cast<const Enemy &>(*this) == static_cast<const Enemy &>(otherCreature))
+    if (static_cast<const Warrior &>(*this) == static_cast<const Warrior &>(otherCreature))
     {   
         //typeid examples
 
@@ -146,7 +146,7 @@ bool Creature::operator==(const Creature &otherCreature) const
 
 bool Creature::operator!=(const Creature &otherCreature) const
 {
-    if (static_cast<const Enemy &>(*this) != static_cast<const Enemy &>(otherCreature))
+    if (static_cast<const Warrior &>(*this) != static_cast<const Warrior &>(otherCreature))
     {
         return true;
     }
@@ -224,9 +224,9 @@ void Creature::showType() const
 {
     cout << "The " << identity << "creature is a " << typeid(*this).name() << "."
          << "\n";
-    if (typeid(*this) == typeid(Enemy))
+    if (typeid(*this) == typeid(Warrior))
     {
-        cout << "The " << identity << "creature is an Enemy."
+        cout << "The " << identity << "creature is an Warrior."
              << "\n";
     }
     else if (typeid(*this) == typeid(Creature))
@@ -236,7 +236,7 @@ void Creature::showType() const
     }
     else
     {
-        cout << "The " << identity << "creature is not an Enemy or Creature."
+        cout << "The " << identity << "creature is not an Warrior or Creature."
              << "\n";
     }
 }

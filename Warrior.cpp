@@ -1,6 +1,6 @@
 #include "Warrior.h"
 #include "WarCraftCharacter.h"
-
+#include <typeinfo>
 #include <iostream>
 #include <cmath>
 using std::cout;
@@ -118,26 +118,24 @@ void Warrior::registerNewWeaponsWarrior(const string &newWeapon)
 
 void Warrior::registerNewAttacks(int damagePoints)
 {
-    cout << "\nRegistrando Ataques de Alfea"
-         << "\n";
 
-    if (damagePoints < 0)
+    if (typeid(damagePoints) == typeid(int) && damagePoints < 0)
     {
         damagePoints = 0;
         return;
     }
-    if (nextEntrieInAttack < ataquesSize)
+    if (typeid(damagePoints) == typeid(int) && nextEntrieInAttack < ataquesSize)
     {
         attacksPointer[nextEntrieInAttack++] = damagePoints;
         return;
     }
-    if (nextEntrieInAttack == ataquesSize || ataquesSize == 0 && nextEntrieInAttack < ataquesSize)
+    if (typeid(damagePoints) == typeid(int) && nextEntrieInAttack == ataquesSize || ataquesSize == 0 && nextEntrieInAttack < ataquesSize)
     {
         allocateAttack(damagePoints);
         return;
     }
 
-    if (ataquesSize == 0 || nextEntrieInAttack == 0)
+    if (typeid(damagePoints) == typeid(int) && ataquesSize == 0 || nextEntrieInAttack == 0)
     {
         ataquesSize = 1;
         attacksPointer = new int[ataquesSize];
@@ -184,42 +182,39 @@ void Warrior::verifyState()
     attackStyle(getCharacterStyle());
 }
 
-ostream &operator<<(ostream &out, const Warrior &Warrior)
+ostream &operator<<(ostream &out, const Warrior &warrior)
 {
-    out << static_cast<WarCraftCharacter>(Warrior);
     out << "Weapons list: " << '\n';
-    for (int i = 0; i < Warrior.weapons.size(); i++)
-        out << Warrior.weapons[i] << '\t' << *Warrior.weapons[i] << '\n';
+    if (typeid(warrior) == typeid(Warrior))
+    {
 
-    out << '\n';
+        for (int i = 0; i < warrior.weapons.size(); i++)
+            out << warrior.weapons[i] << '\t' << *warrior.weapons[i] << '\n';
+
+        out << '\n';
+    }
 
     return out;
 }
 
-bool Warrior::operator!=(const Warrior &) const
+bool Warrior::operator!=(const Warrior &warrior) const
 {
-    if (quantityWeapons == 0)
+    if (typeid(warrior) == typeid(Warrior) && quantityWeapons == 0)
     {
         cout << "We are out of weapons  :(" << '\n';
         return false;
     }
     return true;
-
 }
 bool Warrior::operator==(const Warrior &quantityWeapons) const
 {
-    if (static_cast<WarCraftCharacter>(*this) == static_cast<WarCraftCharacter>(quantityWeapons))
-    {
-        cout << "We are the same" << '\n';
-        return true;
-    }
-    if (this->quantityWeapons == quantityWeapons.quantityWeapons)
+
+    if (typeid(quantityWeapons) == typeid(Warrior) && this->quantityWeapons == quantityWeapons.quantityWeapons)
     {
         cout << "We have the same quantity of weapons" << '\n';
         return true;
     }
     return false;
-    
 }
 bool Warrior::operator!() const
 {
@@ -228,7 +223,7 @@ bool Warrior::operator!() const
         cout << "Warrior hurt" << '\n';
         return false;
     }
-    
+
     return true;
 }
 
@@ -241,10 +236,36 @@ void Warrior::operator=(const Warrior &other)
     this->weaponsRegistered = other.weaponsRegistered;
     for (auto i = 0; i < other.weapons.size(); i++)
         this->weapons[i] = other.weapons[i];
-        
+
     this->nextEntrieInAttack = other.nextEntrieInAttack;
     this->attacksPointer = new int[this->ataquesSize];
     this->ataquesSize = other.ataquesSize;
     for (int i = 0; i < nextEntrieInAttack; i++)
         this->attacksPointer[i] = other.attacksPointer[i];
 }
+
+void Warrior::printInfo() const
+{
+    cout << "Warrior info: " << '\n';
+    cout << "Name: " << getName() << '\n';
+    cout << "Age: " << getAge() << '\n';
+    cout << "Character style: " << getCharacterStyle() << '\n';
+    cout << "Weapon: " << getWeapon() << '\n';
+    cout << "Quantity of weapons: " << getQuantityWeapons() << '\n';
+    cout << "Damage points: " << getAttackPoints() << '\n';
+    cout << "Backpack: " << backpack << '\n';
+    cout << "Weapons registered: " << weaponsRegistered << '\n';
+    cout << "Next entrie in attack: " << nextEntrieInAttack << '\n';
+    cout << "Attack size: " << ataquesSize << '\n';
+    cout << "Attacks: " << '\n';
+    for (int i = 0; i < nextEntrieInAttack; i++)
+        cout << attacksPointer[i] << '\t';
+    cout << '\n';
+    cout << "Weapons: " << '\n';
+    for (int i = 0; i < weapons.size(); i++)
+        cout << weapons[i] << '\t' << *weapons[i] << '\n';
+    cout << '\n';
+}
+
+
+

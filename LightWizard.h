@@ -26,15 +26,24 @@ public:
     void setDirection(int);
     void flashBang();
     int lightningAttack();
+    void showAttackStyle(const string &);
+    //method to store the wizard pointer
+    void setWizard(Wizard *);
+
+
     void operator=(const LightWizard &);
     bool operator==(const LightWizard &) const;
     bool operator!=(const LightWizard &) const;
     void operator!();
 
 private:
+    vector<string> attackStyle;
     string skills;
     int lightningSpeed;
     int direction;
+
+    //vector pointer of Wizard
+    vector<Wizard *> wizard;
 };
 
 #endif // LIGHT_WIZARD_H

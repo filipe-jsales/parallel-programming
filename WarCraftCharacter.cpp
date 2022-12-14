@@ -73,40 +73,67 @@ void WarCraftCharacter::attackStyle(const string &AttackStyle)
     }
     cout << "It is a long range warrior" << '\n';
 }
-ostream &operator<<(ostream &out, const WarCraftCharacter &character)
-{
-    out << "Character name " << '\n';
-    out << character.name << '\n';
-    out << "Character age: " << '\n';
-    out << character.age << '\n';
-    out << "Attack Style: " << '\n';
-    out << character.characterStyle << '\n';
-    return out;
-}
 
-void WarCraftCharacter::operator=(const WarCraftCharacter &character)
+void WarCraftCharacter::printInfo()
 {
-    this->name = character.name;
-    this->age = character.age;
-}
-bool WarCraftCharacter::operator==(const WarCraftCharacter &character) const
-{
+    cout << "Character name " << '\n';
+    cout << name << '\n';
+    cout << "Character age: " << '\n';
+    cout << age << '\n';
+    cout << "Attack Style: " << '\n';
+    cout << characterStyle << '\n';
     if (age < 18)
     {
-        cout << "The character is underage " << '\n';
-        return true;
+        cout << "The character is underage. " << '\n';
     }
-    return false;
-}
-bool WarCraftCharacter::operator!=(const WarCraftCharacter &character) const
-{
-    return !(*this == character);
-}
-
-void WarCraftCharacter::operator!()
-{
     if (characterStyle == "")
     {
-        cout << "Needs to set a character attack style" << '\n';
+        cout << "No character attack style registered yet." << '\n';
+    }
+    if (characterStyle == "Poderes")
+    {
+        cout << "It is a short range warrior" << '\n';
+    }
+    else
+    {
+        cout << "It is a long range warrior" << '\n';
     }
 }
+
+// ostream &operator<<(ostream &out, const WarCraftCharacter &character)
+// {
+//     out << "Character name " << '\n';
+//     out << character.name << '\n';
+//     out << "Character age: " << '\n';
+//     out << character.age << '\n';
+//     out << "Attack Style: " << '\n';
+//     out << character.characterStyle << '\n';
+//     return out;
+// }
+
+// void WarCraftCharacter::operator=(const WarCraftCharacter &character)
+// {
+//     this->name = character.name;
+//     this->age = character.age;
+// }
+// bool WarCraftCharacter::operator==(const WarCraftCharacter &character) const
+// {
+//     if (age < 18)
+//     {
+//         cout << "The character is underage " << '\n';
+//         return true;
+//     }
+//     return false;
+// }
+// bool WarCraftCharacter::operator!=(const WarCraftCharacter &character) const
+// {
+//     return !(*this == character);
+// }
+
+// void WarCraftCharacter::operator!()
+// {
+//     if (characterStyle == "")
+//     {
+//         cout << "Needs to set a character attack style" << '\n';
+//     }
+// }

@@ -26,6 +26,7 @@ public:
     void setDamagePoints(int);
     void setWeapon(const string &);
     void registerNewWeaponsWarrior(const string &);
+    void printInfo() const;
 
     void registerNewAttacks(int);
 

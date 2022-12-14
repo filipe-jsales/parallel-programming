@@ -1,6 +1,6 @@
-#ifndef ENEMY_H
-#define ENEMY_H
-
+#ifndef DWARFWARRIOR_H
+#define DWARFWARRIOR_H
+#include "Warrior.h"
 #include "ostream"
 #include <string>
 #include <vector>
@@ -12,40 +12,39 @@ using std::vector;
 
 using std::string;
 
-class Enemy
+class DwarfWarrior: public Warrior
 {
-    // friend ostream &operator<<(ostream &, const Enemy &);
+    // friend ostream &operator<<(ostream &, const DwarfWarrior &);
 
 public:
-    Enemy();
-    // Enemy(const string &, int = 10, int = 10, int = 3, bool = false);
-    Enemy(const string &, int, bool);
-    Enemy(const Enemy &);
-    ~Enemy();
+    DwarfWarrior();
+    DwarfWarrior(const string &, int = 10, int = 10, int = 3, bool = false);
+    DwarfWarrior(const string &, int, bool);
+    DwarfWarrior(const DwarfWarrior &);
+    ~DwarfWarrior();
 
     void printStatus() const;
     bool isHurt() const;
     void say(const string &) const;
     void decreaseHP(int);
     void catchWeapon(const string &);
-    void attack(Enemy &);
-    void fightWith(Enemy &);
+    void attack(DwarfWarrior &);
+    void fightWith(DwarfWarrior &);
     void equipWeapon(int);
-    void operator=(const Enemy &);
-    bool operator==(const Enemy &) const;
-    bool operator!=(const Enemy &) const;
+    void operator=(const DwarfWarrior &);
+    bool operator==(const DwarfWarrior &) const;
+    bool operator!=(const DwarfWarrior &) const;
     void operator!();
     void showWeapons() const;
-    void showEquippedWeapon() const;
-    void showType() const;
+    void printInfo() const;
 
     string getName() const { return this->name; }
     int getHP() const;
     int getDefensePoints() const;
     int getMaxHP() const;
-    string getEnemyType() const { return this->ENEMY_TYPE; }
-    static int getNumEnemiesInArea() { return Enemy::numEnemies; }
-    static const string *getBodyParts() { return Enemy::BODY_PARTS; }
+    string getDwarfType() const { return this->DWARF_TYPE; }
+    static int getNumEnemiesInArea() { return DwarfWarrior::numEnemies; }
+    static const string *getBodyParts() { return DwarfWarrior::BODY_PARTS; }
     const string *getWeapons() const { return this->weapons; }
     const string *getEquippedWeapon() const { return this->equippedWeaponPtr; }
     int getMaxDefensePoints() const;
@@ -60,16 +59,16 @@ private:
     const int MAX_DEFENSE_POINTS = 200;
     static const int INITIAL_NUM_WEAPONS = 3;
     static const string BODY_PARTS[3];
-    static const string ENEMY_TYPE;
+    static const string DWARF_TYPE;
     static int numEnemies;
     std::string name;
-    std::string weapons[Enemy::INITIAL_NUM_WEAPONS];
+    std::string weapons[DwarfWarrior::INITIAL_NUM_WEAPONS];
     std::string *equippedWeaponPtr;
     int healthPoints;
     int defensePoints;
     int attackPoints;
-    int weaponInventorySize = Enemy::INITIAL_NUM_WEAPONS;
+    int weaponInventorySize = DwarfWarrior::INITIAL_NUM_WEAPONS;
     // bool isLeader;
 };
 
-#endif // ENEMY_H
+#endif // DWARFWARRIOR_H

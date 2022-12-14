@@ -4,7 +4,7 @@
 #include <cmath>
 #include <iostream>
 using std::cout;
-
+//abstrata
 int Wizard::quantityPowers = 0;
 int Wizard::getWizardPowers()
 {
@@ -186,65 +186,37 @@ void Wizard::wizardWarning()
     {
         cout << "You have not registered any powers." << '\n';
     }
-    attackStyle(getCharacterStyle());
+    // attackStyle(getCharacterStyle());
 }
 
-ostream &operator<<(ostream &out, const Wizard &wizard)
+void Wizard::printInfo() const
 {
+    cout << "Name: " << getName() << '\n';
+    cout << "Character Style: " << getCharacterStyle() << '\n';
+    cout << "Age: " << getAge() << '\n';
+    cout << "Powers: " << getPowers() << '\n';
+    cout << "Wizards: " << getWizards() << '\n';
 
-    out << static_cast<WarCraftCharacter>(wizard);
-    out << "vectorPowers list: " << '\n';
-    for (int i = 0; i < wizard.vectorPowers.size(); i++)
-        out << wizard.vectorPowers[i] << '\t' << *wizard.vectorPowers[i] << '\n';
+    cout << "vectorPowers list: " << '\n';
+    for (int i = 0; i < vectorPowers.size(); i++)
+        cout << vectorPowers[i] << '\t' << *vectorPowers[i] << '\n';
 
-    out << "\nWizards: " << '\n';
-    for (int i = 0; i < wizard.nextEntrieInWizards; i++)
-        out << wizard.wizardPtr[i] << "\n";
-
-    out << '\n';
-
-    out << '\n';
-    return out;
-}
-
-bool Wizard::operator!=(const Wizard &powers) const
-{
-    cout << "   Operador de != Wizard" << '\n';
-    if (powers != 0)
-        return true;
-    return false;
-}
-bool Wizard::operator==(const Wizard &powers) const
-{
-    if (static_cast<WarCraftCharacter>(*this) == static_cast<WarCraftCharacter>(powers))
-    {
-        return false;
-    }
-    return false;
-}
-bool Wizard::operator!() const
-{
-    if (powers == 0)
-    {
-        cout << "   Operador de ! Wizard" << '\n';
-        return false;
-    }
-    return true;
-}
-
-void Wizard::operator=(const Wizard &other)
-{
-    cout << "= Operator Wizard" << '\n';
-    setWizards(other.wizards);
-    setPowers(other.powers);
-
-    this->vectorPowers.resize(other.vectorPowers.size());
-    for (auto i = 0; i < other.vectorPowers.size(); i++)
-        this->vectorPowers[i] = other.vectorPowers[i];
-
-    this->nextEntrieInWizards = other.nextEntrieInWizards;
-    this->wizardPtr = new int[this->wizardSize];
-    this->wizardSize = other.wizardSize;
+    cout << "\nWizards: " << '\n';
     for (int i = 0; i < nextEntrieInWizards; i++)
-        this->wizardPtr[i] = other.wizardPtr[i];
+        cout << wizardPtr[i] << "\n";
 }
+
+void Wizard::setAttackStyle(const string &attackStyle)
+{
+
+    //set attack style to vector
+    if (attackStyle == "Long Range" || attackStyle == "Short Range")
+    {
+        this->attackStyle.push_back(attackStyle);
+    }
+    else
+    {
+        cout << "Invalid attack style" << '\n';
+    }
+}
+

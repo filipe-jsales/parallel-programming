@@ -3,7 +3,7 @@
 #include <iostream>
 #include <time.h>
 #include <cstdlib>
-#include "Enemy.h"
+#include "Warrior.h"
 
 using std::string;
 // enum is creating my own type simiular to how int is a type.
@@ -22,7 +22,7 @@ enum COLOR
 	Pink
 };
 
-class Creature : public Enemy
+class Creature : public Warrior
 {
 
 public:

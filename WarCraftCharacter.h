@@ -9,7 +9,7 @@ using std::string;
 using std::vector;
 class WarCraftCharacter
 {
-    friend ostream &operator<<(ostream &, const WarCraftCharacter &);
+    // friend ostream &operator<<(ostream &, const WarCraftCharacter &);
 
 public:
     WarCraftCharacter();
@@ -23,12 +23,10 @@ public:
     void setName(const string &);
     void setAge(int);
     void setCharacterStyle(const string &);
-    bool ageValidator(int);
-    void operator=(const WarCraftCharacter &);
-    bool operator==(const WarCraftCharacter &) const;
-    bool operator!=(const WarCraftCharacter &) const;
-    void operator!();
-    void attackStyle(const string &);
+    virtual bool ageValidator(int);
+    virtual void attackStyle(const string &);
+    void printInfo();
+
 
 private:
     string name;

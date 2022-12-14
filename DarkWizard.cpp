@@ -4,10 +4,21 @@
 #include <iostream>
 #include <cmath>
 #include <iostream>
+#include <typeinfo>
 
 using std::cout;
+using std::string;
+using std::vector;
 
-DarkWizard::DarkWizard() : Wizard() {}
+DarkWizard::DarkWizard() : Wizard() {
+    this->typeofRage = "Darkness";
+    this->magicLevel = 0;
+    this->setDarkMagic(0);
+    static_cast<Wizard *>(this)->setPowers(0);
+    static_cast<Wizard *>(this)->setAttackStyle("Long Range");
+    this->setAge(0);
+    this->setName("Dark Wizard");
+}
 
 DarkWizard::DarkWizard(const string &name, const string &attackStyle, const int age, const int quantityPowers, const string &typeofRage) : Wizard(name, attackStyle, age, quantityPowers)
 {
@@ -66,65 +77,56 @@ void DarkWizard::shadowCastSkill()
         cout << "You are too young to use this skill" << '\n';
     }
 }
-ostream &operator<<(ostream &out, const DarkWizard &darkWizard)
+ostream &operator<<(ostream &out, DarkWizard &darkWizard)
 {
-
-    if (static_cast<Wizard>(darkWizard).getAge() < 18)
+    if ( typeid(darkWizard) == typeid(DarkWizard) && darkWizard.getAge() < 0)
     {
-        cout << "You are too young to use this skill" << '\n';
-        return out;
+        cout << "Age must be positive. Setting it to zero." << '\n';
+        darkWizard.setAge(0);
     }
-    out << static_cast<Wizard>(darkWizard);
-    out << '\n';
+    
+
     return out;
 }
 
 void DarkWizard::operator=(const DarkWizard &character)
 {
-    if (static_cast<Wizard>(*this) == static_cast<Wizard>(character))
+    if (typeid(character) == typeid(DarkWizard) && this == &character)
     {
-        cout << "Not possible to assign to the same character." << '\n';
+        cout << "Dark Wizard assigned" << '\n';
+        this->typeofRage = character.typeofRage;
         return;
     }
-    static_cast<Wizard>(*this) = static_cast<Wizard>(character);
-    this->typeofRage = character.typeofRage;
-    cout << "Dark Wizard assigned" << '\n';
+    cout << "Dark Wizard not assigned" << '\n';
 }
 
 bool DarkWizard::operator==(const DarkWizard &character) const
 {
-    if (static_cast<Wizard>(*this) == static_cast<Wizard>(character))
+    if (typeid(character) == typeid(DarkWizard) && this->typeofRage == character.typeofRage)
     {
         cout << "Dark Wizard equal rage levels" << '\n';
-        return false;
+        return true;
     }
     cout << "Dark Wizard not equal rage levels" << '\n';
     return true;
 }
 bool DarkWizard::operator!=(const DarkWizard &character) const
 {
-    if (static_cast<Wizard>(*this) == static_cast<Wizard>(character))
+    if (typeid(character) == typeid(DarkWizard) && this->typeofRage != character.typeofRage)
     {
-        return false;
+        cout << "Dark Wizard not equal rage levels" << '\n';
+        return true;
     }
     return true;
 }
 
 void DarkWizard::operator!()
 {
-    if (static_cast<Wizard>(*this).getAge() < 18)
-    {
-        cout << "You are too young to use this skill" << '\n';
-        return;
-    }
-    if (static_cast<Wizard>(*this).getAge() >= 18)
-    {
-        cout << "Dark shield active" << '\n';
-        evolve();
-    }
+
     if (typeofRage == "Furia")
     {
         typeofRage = "Calm";
+
         cout << "Calm" << '\n';
     }
     else if (typeofRage == "Calm")
@@ -132,4 +134,69 @@ void DarkWizard::operator!()
         typeofRage = "Furia";
         cout << "Furia" << '\n';
     }
+}
+
+void DarkWizard::setAttackStyle(const string &attackStyle)
+{
+    //set attack style to vector
+    if ( typeid(attackStyle) == typeid(string) && attackStyle == "Dark fire"|| attackStyle == "Blinding light" || attackStyle == "Shadow cast")
+    {
+        this->attackStyle.push_back(attackStyle);
+    }
+    else
+    {
+        cout << "Invalid attack style" << '\n';
+    }
+}
+
+void DarkWizard::getAttackStyle() const
+{
+    //get attack style from vector
+    for (int i = 0; i < attackStyle.size(); i++)
+    {
+        cout << attackStyle[i] << '\n';
+    }
+}
+
+void DarkWizard::setTypesOfRage(const string &typeofRage)
+{
+    //set type of rage to vector
+    if ( typeid(typeofRage) == typeid(string)  && typeofRage == "Low" || typeofRage == "Moderate" || typeofRage == "High")
+    {
+        this->typesofRage.push_back(typeofRage);
+    }
+    else
+    {
+        cout << "Invalid type of rage" << '\n';
+    }
+}
+
+void DarkWizard::getTypesOfRage() const
+{
+    //get type of rage from vector
+    for (int i = 0; i < typesofRage.size(); i++)
+    {
+        cout << typesofRage[i] << '\n';
+    }
+}
+
+void DarkWizard::printInfo() const
+{
+    cout << "Name: " << getName() << '\n';
+    cout << "Age: " << getAge() << '\n';
+    cout << "Type of Rage: " << getTypeofRage() << '\n';
+    cout << "Magic Level: " << getDarkMagic() << '\n';
+    cout << "Powers: " << getPowers() << '\n';
+}
+
+//verify if the spell is valid using typeid
+bool DarkWizard::verifySpell(const string &spell)
+{
+    if (typeid(spell) == typeid(string) && spell == "Dark fire" || spell == "Blinding light" || spell == "Shadow cast")
+    {
+        cout << "Spell valid" << '\n';
+        return true;
+    }
+    cout << "Spell invalid" << '\n';
+    return false;
 }

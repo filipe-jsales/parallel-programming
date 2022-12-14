@@ -4,7 +4,7 @@
 #include <iostream>
 #include <cmath>
 #include <iostream>
-
+#include <typeinfo>
 using std::cout;
 
 LightWizard::LightWizard() : Wizard() {}
@@ -37,26 +37,31 @@ int LightWizard::getDirection() const
 }
 void LightWizard::setSkill(const string &skills)
 {
+    if (typeid(skills) != typeid(string))
+    {
+        cout << "Skill must be a string." << '\n';
+        return;
+    }
     this->skills = skills;
 }
 void LightWizard::setLightningSpeed(int lightningSpeed)
 {
-    if (lightningSpeed < 0)
+    if (typeid(lightningSpeed) != typeid(int))
     {
-        lightningSpeed = 0;
+        cout << "Lightning speed must be an integer." << '\n';
         return;
     }
     this->lightningSpeed = lightningSpeed;
 }
 void LightWizard::setDirection(int direction)
 {
-    if (direction < 0)
+    if (typeid(direction) != typeid(int))
     {
-        cout << "Direction must be positive. Setting it to zero." << '\n';
-        direction = 0;
+        cout << "Direction must be an integer." << '\n';
         return;
     }
     this->direction = direction;
+
 }
 void LightWizard::flashBang()
 {
@@ -78,41 +83,43 @@ int LightWizard::lightningAttack()
 ostream &operator<<(ostream &out, const LightWizard &lightWizard)
 {
 
-    out << static_cast<Wizard>(lightWizard);
-    out << "Skills: " << '\n';
-    out << lightWizard.skills << '\n';
-
-    out << '\n';
-    return out;
+    if (typeid(lightWizard) == typeid(LightWizard))
+    {
+        out << "Light wizard skills: " << lightWizard.skills << '\n';
+        out << "Lightning speed: " << lightWizard.lightningSpeed << '\n';
+        out << "Direction: " << lightWizard.direction << '\n';
+        return out;
+    }
 }
 
 void LightWizard::operator=(const LightWizard &lightWizard)
 {
-    return static_cast<Wizard>(*this) = static_cast<Wizard>(lightWizard);
-    if (this != &lightWizard)
+    // return static_cast<Wizard>(*this) = static_cast<Wizard>(lightWizard);
+    if (typeid(lightWizard) == typeid(LightWizard) && this == &lightWizard)
     {
-        cout << "Light wizard skills assigned." << '\n';
         this->skills = lightWizard.skills;
+        return;
     }
 }
 bool LightWizard::operator==(const LightWizard &lightWizard) const
 {
-    if (static_cast<Wizard>(*this) == static_cast<Wizard>(lightWizard))
+    if (typeid(lightWizard) == typeid(LightWizard) && this == &lightWizard)
     {
-        cout << "The wizards are the same." << '\n';
+        cout << "Light wizard skills are equal." << '\n';
         return true;
     }
-
+    cout << "Light wizard skills are not equal." << '\n';
     return false;
 }
 bool LightWizard::operator!=(const LightWizard &lightWizard) const
 {
-    if (static_cast<Wizard>(*this) != static_cast<Wizard>(lightWizard))
+    if (typeid(lightWizard) == typeid(LightWizard) && this == &lightWizard)
     {
-        cout << "The wizards are different." << '\n';
+        cout << "Light wizard skills are equal." << '\n';
         return true;
     }
-    return !(*this == lightWizard);
+    cout << "Light wizard skills are not equal." << '\n';
+    return false;
 }
 
 void LightWizard::operator!()
@@ -127,3 +134,21 @@ void LightWizard::operator!()
         cout << "Could use ! operator" << '\n';
     }
 }
+
+//method using dynamic_cast
+void LightWizard::showAttackStyle(const string &characterStyle)
+{
+    if (characterStyle == "Wizard")
+    {
+        LightWizard *lightWizard = dynamic_cast<LightWizard *>(this);
+        if (lightWizard != nullptr)
+        {
+            cout << "Wizard attack style: " << lightWizard->attackStyle[0] << '\n';
+        } 
+    }
+    else
+    {
+        cout << "Invalid attack style" << '\n';
+    }
+}
+

@@ -13,6 +13,8 @@ struct Witcher
     string name;
     string typeofPower;
     double attackStrength;
+    //vector attackStyle;
+
 };
 class Wizard : public WarCraftCharacter
 {
@@ -34,19 +36,22 @@ public:
     int getWizards() const;
 
     void setPowerName(const string &);
-    void registerWizardsPower(const string &);
-    void registerWizards(int);
+    virtual void registerWizardsPower(const string &);
+    virtual void registerWizards(int);
+    void printInfo() const;
 
+    virtual void setAttackStyle(const string &);
     void evolve();
     void showWitcherStatus(Witcher);
     void getWitcherPower(Witcher);
+    void showAttackStyle(const string &);
 
     void wizardWarning();
 
-    bool operator!=(const Wizard &) const;
-    bool operator==(const Wizard &) const;
-    bool operator!() const;
-    void operator=(const Wizard &);
+    // bool operator!=(const Wizard &) const;
+    // bool operator==(const Wizard &) const;
+    // bool operator!() const;
+    // void operator=(const Wizard &);
 
 private:
     int powers;
@@ -55,6 +60,8 @@ private:
     int nextEntrieInWizards;
     void allocateWizards(int);
 
+    vector<string> attackStyle;
+    string powerName;
     static int quantityPowers;
     const float STRENGTH;
     int wizards;

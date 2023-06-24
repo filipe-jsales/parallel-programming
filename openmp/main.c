@@ -4,7 +4,6 @@
 #include <omp.h>
 #pragma GCC optimize("O3")
 
-// Structure to represent an edge in the graph
 struct Edge
 {
     int destination;
@@ -12,14 +11,12 @@ struct Edge
     int cost;
 };
 
-// Function to find the minimum cost using the Bellman-Ford algorithm
 int minCost(struct Edge **graph, int numVertices, int source, int destination)
 {
     int i, j, k;
     int *dist = (int *)malloc(numVertices * sizeof(int));
     int *prev = (int *)malloc(numVertices * sizeof(int));
 
-// Parallelize the initialization loop
 #pragma omp parallel for
     for (i = 0; i < numVertices; ++i)
     {
@@ -29,7 +26,6 @@ int minCost(struct Edge **graph, int numVertices, int source, int destination)
 
     dist[source] = 0;
 
-// Relax edges repeatedly
 #pragma omp parallel for
     for (i = 0; i < numVertices - 1; ++i)
     {
@@ -50,8 +46,7 @@ int minCost(struct Edge **graph, int numVertices, int source, int destination)
         }
     }
 
-    // Check for negative cycle
-    int negativeCycleExists = 0; // Shared variable indicating if a negative cycle is found
+    int negativeCycleExists = 0; 
 #pragma omp parallel for shared(dist, negativeCycleExists) private(j, k) collapse(2)
     for (j = 0; j < numVertices; ++j)
     {
@@ -65,7 +60,7 @@ int minCost(struct Edge **graph, int numVertices, int source, int destination)
             {
 #pragma omp critical
                 {
-                    negativeCycleExists = 1; // Set the flag indicating negative cycle
+                    negativeCycleExists = 1; 
                 }
             }
         }
@@ -75,10 +70,9 @@ int minCost(struct Edge **graph, int numVertices, int source, int destination)
     {
         free(dist);
         free(prev);
-        return -1; // Negative cycle exists
+        return -1; 
     }
 
-    // Calculate the minimum cost
     int minCost = 0;
     int u = destination;
 
@@ -111,11 +105,9 @@ int main()
         printf("Hello from thread %d\n", omp_get_thread_num());
     }
     double startTime, endTime;
-    startTime = omp_get_wtime(); // Start measuring time
+    startTime = omp_get_wtime();
 
-    // Example usage
     int numVertices = 100;
-    // Allocate memory for the 2D array
     struct Edge **graph = (struct Edge **)malloc(numVertices * sizeof(struct Edge *));
     struct Edge *graphData = (struct Edge *)malloc(numVertices * numVertices * sizeof(struct Edge));
 
@@ -127,7 +119,7 @@ int main()
 
     // data goes here
     // Adding edges to the graph
-    graph[0][3].destination = 1;
+        graph[0][3].destination = 1;
     graph[0][3].capacity = 2;
     graph[0][3].cost = 5;
 
@@ -269,7 +261,7 @@ int main()
 
     int minimumCost = minCost(graph, numVertices, source, destination);
 
-    endTime = omp_get_wtime(); // Stop measuring time
+    endTime = omp_get_wtime(); 
     double processingTime = endTime - startTime;
 
     printf("Processing time: %f seconds\n", processingTime);

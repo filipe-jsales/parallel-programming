@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
-
+#include <time.h>
 // Structure to represent an edge in the graph
 struct Edge
 {
@@ -89,7 +89,10 @@ int minCost(struct Edge **graph, int numVertices, int source, int destination)
 
 int main()
 {
-    // Example usage
+    clock_t startTime, endTime;
+    double executionTime;
+
+    startTime = clock();
     int numVertices = 100;
     struct Edge **graph = (struct Edge *)malloc(numVertices * sizeof(struct Edge));
 
@@ -98,6 +101,8 @@ int main()
     {
         graph[i] = (struct Edge *)malloc(numVertices * sizeof(struct Edge));
     }
+    // data goes here
+    // Adding edges to the graph
 
     graph[0][3].destination = 1;
     graph[0][3].capacity = 2;
@@ -235,10 +240,16 @@ int main()
     graph[10][2].capacity = 3;
     graph[10][2].cost = 2;
 
+    // data ends here
+
     int source = 0;
     int destination = 4;
 
     int minimumCost = minCost(graph, numVertices, source, destination);
+    endTime = clock();
+    executionTime = (double)(endTime - startTime) / CLOCKS_PER_SEC;
+
+    printf("Execution time: %f seconds\n", executionTime);
 
     if (minimumCost == -1)
     {

@@ -32,7 +32,7 @@ Agora, você pode instalar o pacote OpenMPI digitando o seguinte comando:
 sudo apt install openmpi-bin
 ```
 
-# Dataset utilizado
+## Dataset utilizado
 
 ```
 https://www.kaggle.com/code/jorgebuenoperez/map-of-railway-connections/input
